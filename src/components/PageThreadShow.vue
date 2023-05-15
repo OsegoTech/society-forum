@@ -1,5 +1,5 @@
 <template>
-  <div class="col-large push-top" >
+  <div v-if="thread" class="col-large push-top" >
     <h1>{{ thread.title }}</h1>
     <div class="post-list">
       <div class="post"
@@ -28,10 +28,14 @@
       </div>
     </div>
   </div>
+  <div v-else class="col-full text-center">
+    <h1>This thread does not exist</h1>
+    <RouterLink :to="{name: 'Home'}"></RouterLink>
+  </div>
 
 
 
-  <div class="pagination">
+  <!-- <div class="pagination">
     <button class="btn-circle" disabled><i class="fa fa-angle-left"></i></button>
     1 of 3
     <button class="btn-circle"><i class="fa fa-angle-right"></i></button>
@@ -47,7 +51,7 @@
       <li><i class="fa fa-comment-o"></i>763 posts</li>
     </ul>
 
-  </div>
+  </div> -->
 </template>
 
 <script>

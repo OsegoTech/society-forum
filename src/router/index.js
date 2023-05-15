@@ -15,12 +15,12 @@ const routes = [
         name: 'ThreadShow',
         component: PageThreadShow,
         props: true,
-        beforeEnter(to, from, next){
+        beforeRouteEnter(to, from, next){
         //     check of the thread with specified id exists
             const threadExists = sourceData.threads.find(thread => thread.id === to.params.id)
         //     If exists, Continue
             if (threadExists){
-                return next()
+                return next({PageThreadShow})
             } else {
                 next({name: 'NotFound'})
             }

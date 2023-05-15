@@ -1,5 +1,5 @@
 <template>
-  <h1>Welcome to Forum</h1>
+  <!-- <h1>Welcome to Forum</h1> -->
   <ThreadList :threads="threads"/>
 </template>
 
