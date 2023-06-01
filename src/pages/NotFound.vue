@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import pageHome from "@/components/PageHome.vue";
+import pageHome from "@/pages/Home.vue";
 
 export default {
   name: "PageNotFound",

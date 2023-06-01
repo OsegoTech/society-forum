@@ -1,36 +1,42 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import PageHome from "@/components/PageHome.vue";
-import PageThreadShow from "@/components/PageThreadShow.vue";
-import PageNotFound from "@/components/PageNotFound.vue";
+import Home from "@/pages/Home.vue";
+import ThreadShow from "@/pages/ThreadShow.vue";
+import NotFound from "@/pages/NotFound.vue";
 import sourceData from '@/data.json'
 
 const routes = [
     {
         path: '/',
         name: 'Home',
-        component: PageHome
+        component: Home
     },
     {
         path: '/thread/:id',
         name: 'ThreadShow',
-        component: PageThreadShow,
+        component: ThreadShow,
         props: true,
-        beforeRouteEnter(to, from, next){
-        //     check of the thread with specified id exists
+        // check if the thread with the id specified in the params exists
+        // if it does, pass it to the component via props
+        // else redirect to not found page
+        beforeEnter(to, from, next) {
             const threadExists = sourceData.threads.find(thread => thread.id === to.params.id)
-        //     If exists, Continue
-            if (threadExists){
-                return next({PageThreadShow})
+            if (threadExists) {
+                return next()
             } else {
-                next({name: 'NotFound'})
+                next({
+                    name: 'NotFound',
+                    params: { pathMatch: to.path},
+                    // preserve existing query and hash
+                    query: to.query,
+                    hash: to.hash,
+                })
             }
-        //     if doesn't exist, redirect the user to not found page
-        }
+        },
     },
     {
         path: '/:pathMatch(.*)',
         name: 'NotFound',
-        component: PageNotFound
+        component: NotFound
     }
 ]
 

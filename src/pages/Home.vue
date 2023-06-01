@@ -1,5 +1,5 @@
 <template>
-  <!-- <h1>Welcome to Forum</h1> -->
+  <h1>Welcome to Forum</h1>
   <ThreadList :threads="threads"/>
 </template>
 
@@ -108,7 +108,7 @@ export default {
 }
 
 .post-content {
-  /*display: flex;*/
+  display: flex;
   flex: 1 0 83%;
   padding-left: 15px;
   padding-right: 10px;
