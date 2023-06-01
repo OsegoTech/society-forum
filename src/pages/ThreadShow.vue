@@ -1,95 +1,68 @@
 <template>
-  <div  class="col-large push-top" >
+  <div class="col-large push-top">
     <h1>{{ thread.title }}</h1>
-    <div class="post-list">
-      <div class="post"
-           v-for="postId in thread.posts"
-           :key="postId"
-      >
-        <div class="user-info">
-          <a href="#" class="user-name">{{ userById(postById(postId).userId).name }}</a>
-          <a href="#">
-            <img :src="userById(postById(postId).userId).avatar" alt="" class="avatar-large">
-          </a>
-          <p class="desktop-only text-small"> 107 posts</p>
+    <post-list :posts="threadPosts" />
+    <div class="col-full">
+      <form @submit.prevent="addPost">
+        <div class="form-group">
+          <textarea v-model="newPostText" name="" id="" cols="30" rows="10" class="form-input" />
         </div>
-
-        <div class="post-content">
-          <div>
-            <p>
-              {{ postById(postId).text }}
-            </p>
-          </div>
+        <div class="form-actions">
+          <button class="btn-blue">Submit Post</button>
         </div>
-
-        <div class="post-date text-faded">
-          {{postById(postId).publishedAt}}
-        </div>
-      </div>
+      </form>
     </div>
   </div>
-<!--  <div v-else class="col-full text-center">-->
-<!--    <h1>This thread does not exist</h1>-->
-<!--    <RouterLink :to="{name: 'Home'}">Read Some Cool threads</RouterLink>-->
-<!--  </div>-->
-
-
-
-  <!-- <div class="pagination">
-    <button class="btn-circle" disabled><i class="fa fa-angle-left"></i></button>
-    1 of 3
-    <button class="btn-circle"><i class="fa fa-angle-right"></i></button>
-  </div>
-
-
-  <div class="forum-stats desktop-only">
-    <hr>
-    <ul>
-      <li><i class="fa fa-user-circle-o"></i>47 users online</li>
-      <li><i class="fa fa-user-o"></i>497 users registered</li>
-      <li><i class="fa fa-comments-o"></i>49 threads</li>
-      <li><i class="fa fa-comment-o"></i>763 posts</li>
-    </ul>
-
-  </div> -->
 </template>
 
 <script>
 import sourceData from "@/data.json";
+import PostList from "@/components/PostList.vue";
 
 export default {
-  name: "PageThreadShow",
+  name: "ThreadShow",
+  components: { PostList },
   // props from the route component
   props: {
     id: {
       required: true,
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
       threads: sourceData.threads,
       posts: sourceData.posts,
-      users: sourceData.users
-    }
+      newPostText: ''
+    };
   },
   computed: {
-    thread(){
-      return this.threads.find(thread => thread.id === this.id)
-    }
+    thread() {
+      return this.threads.find((thread) => thread.id === this.id);
+    },
+    threadPosts() {
+      return this.posts.filter((post) => post.threadId === this.id);
+    },
   },
   methods: {
-    postById(postId) {
-      return this.posts.find(p => p.id === postId)
-    },
-    userById(userId) {
-      return this.users.find(p => p.id === userId)
-    }
-  }
+    addPost(){
+      const postId = 'gggg' + Math.random()
+      const post = {
+        id: postId,
+        text: this.newPostText,
+        publishedAt: Math.floor(Date.now()/1000),
+        threadId: this.id,
+        userId: '38St7Q8Zi2N1SPa5ahzssq9kbyp1'
+      }
+      this.posts.push(post)
+      this.thread.posts.push(postId)
 
-}
+      // clear the form after submit
+      this.newPostText = ''
+    }
+    
+  }
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
