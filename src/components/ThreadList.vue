@@ -1,72 +1,73 @@
 <template>
   <div>
     <div class="col-full">
-
       <div class="thread-list">
-
         <h2 class="list-title">Threads</h2>
 
         <div v-for="thread in threads" :key="thread.id" class="thread">
           <div>
             <p>
-              <router-link :to="{name: 'ThreadShow', params:{id: thread.id}}">{{ thread.title }}</router-link>
+              <router-link
+                :to="{ name: 'ThreadShow', params: { id: thread.id } }"
+                >{{ thread.title }}</router-link
+              >
             </p>
             <p class="text-faded text-xsmall">
-              By <a href="">{{ userById(thread.userId).name }}</a>, {{ thread.publishedAt }}.
+              By <a href="">{{ userById(thread.userId).name }}</a
+              >, <app-date :timestamp="thread.publishedAt"/>.
             </p>
           </div>
 
           <div class="activity">
-            <p class="replies-count">
-              {{ thread.posts.length }} replies
-            </p>
+            <p class="replies-count">{{ thread.posts.length }} replies</p>
 
-            <img class="avatar-medium" :src="userById(thread.userId).avatar" alt="">
+            <img
+              class="avatar-medium"
+              :src="userById(thread.userId).avatar"
+              alt=""
+            />
 
             <div>
               <p class="text-xsmall">
                 <a href="#">{{ userById(thread.userId).name }}</a>
               </p>
-              <p class="text-xsmall text-faded">{{ thread.publishedAt }}</p>
+              <p class="text-xsmall text-faded"><app-date :timestamp="thread.publishedAt"/></p>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import sourceData from '@/data.json'
+import sourceData from "@/data.json";
+import AppDate from "./AppDate.vue";
 export default {
-  props:{
+  props: {
     threads: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   name: "ThreadList",
-    components: {},
-    data() {
-      return {
-        // threads: sourceData.threads,
-        posts: sourceData.posts,
-        users: sourceData.users
-      }
+  components: { AppDate },
+  data() {
+    return {
+      // threads: sourceData.threads,
+      posts: sourceData.posts,
+      users: sourceData.users,
+    };
+  },
+  methods: {
+    postById(postId) {
+      return this.posts.find((p) => p.id === postId);
     },
-    methods: {
-      postById(postId) {
-        return this.posts.find(p => p.id === postId)
-      },
-      userById(userId) {
-        return this.users.find(p => p.id === userId)
-      }
-    }
-
-}
+    userById(userId) {
+      return this.users.find((p) => p.id === userId);
+    },
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
