@@ -32,11 +32,9 @@
 
 <script>
 import sourceData from "@/data.json";
-import AppDate from "./AppDate.vue";
 export default {
   name: "PostList",
   components: {
-    AppDate,
   },
   data() {
     return {

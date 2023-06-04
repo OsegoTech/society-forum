@@ -42,7 +42,6 @@
 
 <script>
 import sourceData from "@/data.json";
-import AppDate from "./AppDate.vue";
 export default {
   props: {
     threads: {
@@ -51,7 +50,7 @@ export default {
     },
   },
   name: "ThreadList",
-  components: { AppDate },
+  components: {  },
   data() {
     return {
       // threads: sourceData.threads,
