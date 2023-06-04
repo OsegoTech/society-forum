@@ -13,7 +13,7 @@ const routes = [
     },
   {
     path: '/forum/:id',
-    name: 'Forum',
+    name: 'ForumPage',
     component: ForumPage,
     props: true
   },

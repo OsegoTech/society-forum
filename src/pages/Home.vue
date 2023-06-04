@@ -1,18 +1,19 @@
 <template>
   <h1>Welcome to Forum</h1>
-  <ThreadList :threads="threads"/>
+  <ForumList :forums="forums"/>
 </template>
 
 <script>
 import sourceData from '@/data.json'
-import ThreadList from "@/components/ThreadList.vue";
+// import ThreadList from "@/components/ThreadList.vue";
+import ForumList from "@/components/ForumList.vue";
 
 export default {
   name: "PageHome",
-  components: {ThreadList},
+  components: {ForumList,},
   data() {
     return {
-      threads: sourceData.threads,
+      forums: sourceData.forums,
     }
   },
 }
